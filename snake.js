@@ -1,4 +1,4 @@
-import { foodOnBoard } from "./food.js";
+import { createFood, getFoodOnBoard, setFoodOnBoard } from "./food.js";
 import { getInputDirection } from "./input.js";
 
 export const snakeSpeed = 7;
@@ -23,9 +23,13 @@ export function update() {
     }
 
 
-    if () {
-        
+
+    if (snakeBody[0].x + inputDirection.x == getFoodOnBoard().x && snakeBody[0].y == getFoodOnBoard().y) {
+        snakeBody.unshift(getFoodOnBoard())
+        setFoodOnBoard({})
+        createFood()
     }
+    
 
     //snake moving
     snakeBody[0].x += inputDirection.x
@@ -49,14 +53,18 @@ export function render(gameBoard) {
     })
     
     //food render
-    let foodEl = document.createElement('div')
-    foodEl.style.gridColumnStart = foodOnBoard.x
-    foodEl.style.gridRowStart = foodOnBoard.y
-    foodEl.classList.add('food')
-    gameBoard.appendChild(foodEl)
+    if (getFoodOnBoard() != {}) {
+        let foodEl = document.createElement('div')
+        foodEl.style.gridColumnStart = getFoodOnBoard().x
+        foodEl.style.gridRowStart = getFoodOnBoard().y
+        foodEl.classList.add('food')
+        gameBoard.appendChild(foodEl)
+    }
 }
 
 function hasLost() {
     alert('lose')
     location.reload()
 }
+
+
