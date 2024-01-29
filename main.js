@@ -1,3 +1,4 @@
+import { createFood } from './food.js'
 import { update, render, snakeSpeed } from './snake.js'
 
 let lastFrameTime = 0
@@ -17,5 +18,6 @@ function main(currentTime) {
     
 }
 
+createFood()
 window.requestAnimationFrame(main)
 
