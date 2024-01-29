@@ -12,7 +12,7 @@ export function getSnakeBody() {
 
 export function update() {
     //Lose detection
-    if  ((snakeBody[0].y > 20 || snakeBody[0].y < 1) && (getInputDirection().y == -1 || getInputDirection().y == 1) || (snakeBody[0].x < 1 || snakeBody.x > 20) && (getInputDirection().x == -1 || getInputDirection().x == 1)) {
+    if  ((snakeBody[0].y > 20 && getInputDirection().y == 1) || (snakeBody[0].y < 1 && getInputDirection().y == -1) || (snakeBody[0].x < 1 && getInputDirection().x == -1) || (snakeBody[0].x > 20 && getInputDirection().x == 1)) {
         hasLost()
     }
 
@@ -24,7 +24,12 @@ export function update() {
 
 
 
-    if (snakeBody[0].x + inputDirection.x == getFoodOnBoard().x && snakeBody[0].y == getFoodOnBoard().y) {
+    if (snakeBody[0].x == getFoodOnBoard().x && snakeBody[0].y == getFoodOnBoard().y) {
+        snakeBody.unshift(getFoodOnBoard())
+        setFoodOnBoard({})
+        createFood()
+    }
+    if (snakeBody[0].y  == getFoodOnBoard().y && snakeBody[0].x == getFoodOnBoard().x) {
         snakeBody.unshift(getFoodOnBoard())
         setFoodOnBoard({})
         createFood()
