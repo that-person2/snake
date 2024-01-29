@@ -42,11 +42,16 @@ export function render(gameBoard) {
     gameBoard.innerHTML = ''
 
     //snake rendering
-    snakeBody.forEach(segment => {
+    snakeBody.forEach((segment, index) => {
         const snakeEl = document.createElement('div')
         snakeEl.style.gridColumnStart = segment.x
         snakeEl.style.gridRowStart = segment.y
         snakeEl.classList.add('snake')
+        if (index == 0) {
+            snakeEl.classList.add('head')
+        } else {
+            snakeEl.classList.remove('head')
+        }
         console.log('x: ' + segment.x + 'y: ' + segment.y )
 
         gameBoard.appendChild(snakeEl)
