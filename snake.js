@@ -15,6 +15,9 @@ export function update() {
     if  ((snakeBody[0].y > 20 && getInputDirection().y == 1) || (snakeBody[0].y < 1 && getInputDirection().y == -1) || (snakeBody[0].x < 1 && getInputDirection().x == -1) || (snakeBody[0].x > 20 && getInputDirection().x == 1)) {
         hasLost()
     }
+    if (snakeBody.some((segment, index) => snakeBody[0].x == segment.x && snakeBody[0].y == segment.y && index != 0)) {
+        hasLost()
+    }
 
 
     let inputDirection = getInputDirection()
@@ -23,7 +26,7 @@ export function update() {
     }
 
 
-
+    // If snake in collision with food
     if (snakeBody[0].x == getFoodOnBoard().x && snakeBody[0].y == getFoodOnBoard().y) {
         snakeBody.unshift(getFoodOnBoard())
         setFoodOnBoard({})
