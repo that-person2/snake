@@ -1,16 +1,16 @@
 import { createFood, getFoodOnBoard, setFoodOnBoard } from "./food.js";
-import { getInputDirection } from "./input.js";
+import { getInputDirection, setInputDirection } from "./input.js";
 
-export const snakeSpeed = 7;
+let score = 0
+export const snakeSpeed = 10;
 const snakeBody = [ 
     { x: 11, y: 11},
  ]
 
- let growthAmount = 1
+ let growthAmount = 1 
 
-export function getSnakeBody() {
-    return snakeBody
-}
+export default snakeBody
+
 
 export function update() {
 
@@ -34,6 +34,7 @@ export function update() {
         for (let i = 0; i < growthAmount; i++) {
             snakeBody.push(getFoodOnBoard())
         }
+        score++
         setFoodOnBoard({})
         createFood()
     }
@@ -41,6 +42,7 @@ export function update() {
         for (let i = 0; i < growthAmount; i++) {
             snakeBody.push(getFoodOnBoard())
         }
+        score++
         setFoodOnBoard({})
         createFood()
     }
@@ -52,6 +54,12 @@ export function update() {
 
 export function render(gameBoard) {
     gameBoard.innerHTML = ''
+
+    //score rendering
+    const scoreDisplay = document.createElement('div')
+    scoreDisplay.textContent = score
+    scoreDisplay.id = 'score-display'
+    gameBoard.appendChild(scoreDisplay)
 
     //snake rendering
     snakeBody.forEach((segment, index) => {
@@ -83,6 +91,7 @@ let hasBeenCalled = false
 function hasLost() {
     if (!hasBeenCalled) {
         hasBeenCalled = true
+        setInputDirection({x: 0, y: 0})
         alert('lose')
         location.reload()
     }

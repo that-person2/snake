@@ -8,9 +8,8 @@
 </head>
 <body>
     <div id="game-board">
-        
+        <h1 id="score-display">1</h1>
     </div>
-
     <style>
         body {
             height: 100vh;
@@ -31,6 +30,12 @@
             grid-template-rows: repeat(21, 1fr);
         }
 
+        #score-display {
+            position: absolute;
+            color: white;
+            font-size: 40px;
+        }
+
         #score {
             color: white;
         }
@@ -43,6 +48,7 @@
         }
         .snake.head {
             background-color: hsl(115, 100%, 35%);
+            z-index: 100;
         }
 
         .food {

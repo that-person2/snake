@@ -1,3 +1,4 @@
+import snakeBody from "./snake.js"
 let inputDirection = {x: 0, y: 0}
 
 window.addEventListener('keydown', e => {
@@ -20,4 +21,9 @@ window.addEventListener('keydown', e => {
 
 export function getInputDirection() {
     return inputDirection
+}
+
+
+export function setInputDirection(value) {
+    inputDirection = value
 }
