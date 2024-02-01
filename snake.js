@@ -6,11 +6,15 @@ const snakeBody = [
     { x: 11, y: 11},
  ]
 
+ let growthAmount = 1
+
 export function getSnakeBody() {
     return snakeBody
 }
 
 export function update() {
+
+
     //Lose detection
     if  ((snakeBody[0].y > 20 && getInputDirection().y == 1) || (snakeBody[0].y < 1 && getInputDirection().y == -1) || (snakeBody[0].x < 1 && getInputDirection().x == -1) || (snakeBody[0].x > 20 && getInputDirection().x == 1)) {
         hasLost()
@@ -20,7 +24,6 @@ export function update() {
     }
 
 
-    let inputDirection = getInputDirection()
     for (let i = snakeBody.length - 2; i >= 0; i--) {
         snakeBody[i + 1] = { ...snakeBody[i] }
     }
@@ -28,21 +31,22 @@ export function update() {
 
     // If snake in collision with food
     if (snakeBody[0].x == getFoodOnBoard().x && snakeBody[0].y == getFoodOnBoard().y) {
-        snakeBody.unshift(getFoodOnBoard())
+        for (let i = 0; i < growthAmount; i++) {
+            snakeBody.push(getFoodOnBoard())
+        }
         setFoodOnBoard({})
         createFood()
     }
     if (snakeBody[0].y  == getFoodOnBoard().y && snakeBody[0].x == getFoodOnBoard().x) {
-        snakeBody.unshift(getFoodOnBoard())
+        for (let i = 0; i < growthAmount; i++) {
+            snakeBody.push(getFoodOnBoard())
+        }
         setFoodOnBoard({})
         createFood()
     }
-    
-
     //snake moving
-    snakeBody[0].x += inputDirection.x
-    snakeBody[0].y += inputDirection.y
-
+    snakeBody[0].x += getInputDirection().x
+    snakeBody[0].y += getInputDirection().y
 
 } 
 
@@ -75,9 +79,13 @@ export function render(gameBoard) {
     }
 }
 
+let hasBeenCalled = false
 function hasLost() {
-    alert('lose')
-    location.reload()
+    if (!hasBeenCalled) {
+        hasBeenCalled = true
+        alert('lose')
+        location.reload()
+    }
 }
 
 
